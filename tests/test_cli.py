@@ -15,6 +15,13 @@ def remove_date_header(lines):
     return [line for line in lines if not line.startswith("date:")]
 
 
+def test_help():
+    runner = CliRunner()
+    result = runner.invoke(cli, ["--help"])
+    assert result.exit_code == 0
+    assert "A next generation HTTP client." in result.output
+
+
 def test_get(server):
     runner = CliRunner()
     result = runner.invoke(cli, [server.url])
