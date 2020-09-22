@@ -1,0 +1,9 @@
+-e .
+
+autoflake
+pytest
+pytest-cov
+black
+mypy
+isort
+uvicorn
