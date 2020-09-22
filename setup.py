@@ -58,6 +58,9 @@ setup(
         "rich==7.*",
         "httpx[http2,brotli]==0.15.*",
     ],
+    entry_points = {
+        "console_scripts": "httpx=httpx_cli:cli"
+    },
     classifiers=[
         "Development Status :: 4 - Beta",
         "Environment :: Web Environment",
