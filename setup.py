@@ -22,9 +22,6 @@ def get_long_description():
     long_description = ""
     with open("README.md", encoding="utf8") as f:
         long_description += f.read()
-    long_description += "\n\n"
-    with open("CHANGELOG.md", encoding="utf8") as f:
-        long_description += f.read()
     return long_description
 
 
