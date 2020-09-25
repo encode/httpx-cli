@@ -8,8 +8,8 @@ $ pip install httpx-cli
 
 Usage:
 
-![httpx --help](https://raw.githubusercontent.com/encode/httpx/master/docs/img/httpx-help.png)
+![httpx --help](https://raw.githubusercontent.com/encode/httpx-cli/master/docs/img/httpx-help.png)
 
 Example:
 
-![httpx http://www.httpbin.org/json](https://raw.githubusercontent.com/encode/httpx/master/docs/img/httpx-json.png)
+![httpx http://www.httpbin.org/json](https://raw.githubusercontent.com/encode/httpx-cli/master/docs/img/httpx-json.png)
