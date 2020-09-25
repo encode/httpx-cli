@@ -41,7 +41,7 @@ setup(
     version=get_version("httpx_cli"),
     url="https://github.com/encode/httpx-cli",
     project_urls={
-        "Documentation": "https://www.python-httpx.org",
+        "Documentation": "https://github.com/encode/httpx-cli",
         "Source": "https://github.com/encode/httpx-cli",
     },
     license="BSD",
