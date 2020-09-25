@@ -1,7 +1,6 @@
 from rich.console import Console
 from rich.table import Table
 
-
 help_table = [
     (
         "-m, --method [cyan]METHOD",
