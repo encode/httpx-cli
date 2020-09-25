@@ -9,6 +9,7 @@ import rich.syntax
 
 import httpx
 
+from ._help import print_help
 from ._utils import (
     format_request_headers,
     format_response_headers,
@@ -106,7 +107,19 @@ def validate_auth(
     return (username, password)
 
 
-@click.command()
+def handle_help(
+    ctx: click.Context,
+    param: typing.Union[click.Option, click.Parameter],
+    value: typing.Any,
+) -> None:
+    if not value or ctx.resilient_parsing:
+        return
+
+    print_help()
+    ctx.exit()
+
+
+@click.command(add_help_option=False)
 @click.argument("url", type=str)
 @click.option(
     "--method",
@@ -241,6 +254,14 @@ def validate_auth(
     is_flag=True,
     default=False,
     help="Verbose. Show request as well as response.",
+)
+@click.option(
+    "--help",
+    is_flag=True,
+    is_eager=True,
+    expose_value=False,
+    callback=handle_help,
+    help="Show this message and exit.",
 )
 def cli(
     url: str,
