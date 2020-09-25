@@ -47,7 +47,7 @@ setup(
     long_description_content_type="text/markdown",
     author="Tom Christie",
     author_email="tom@tomchristie.com",
-    packages=get_packages("httpx-cli"),
+    packages=get_packages("httpx_cli"),
     include_package_data=True,
     zip_safe=False,
     install_requires=[
