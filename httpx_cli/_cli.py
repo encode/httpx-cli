@@ -1,6 +1,8 @@
 import json
+import os
 import sys
 import typing
+from http.cookiejar import FileCookieJar, LWPCookieJar
 
 import click
 import rich.console
@@ -16,6 +18,11 @@ from ._utils import (
     get_download_filename,
     get_lexer_for_response,
 )
+
+
+class NullCookieJar(FileCookieJar):
+    def save(self, ignore_discard: bool=False):
+        pass
 
 
 def print_request_headers(request: httpx.Request) -> None:
@@ -105,6 +112,22 @@ def validate_auth(
     if password == "-":  # pragma: nocover
         password = click.prompt("Password", hide_input=True)
     return (username, password)
+
+
+def validate_session(
+    ctx: click.Context,
+    param: typing.Union[click.Option, click.Parameter],
+    value: typing.Any,
+) -> typing.Any:
+    if value is None:
+        return NullCookieJar()
+
+    session = LWPCookieJar(filename=value)
+    if not os.path.exists(value):
+        session.save()
+    else:
+        session.load(ignore_discard=True)
+    return session
 
 
 def handle_help(
@@ -248,6 +271,13 @@ def handle_help(
     help="Save the response content as a file, rather than displaying it.",
 )
 @click.option(
+    "--session",
+    type=click.Path(),
+    default=None,
+    callback=validate_session,
+    help="Use persistent sessions, by loading and saving cookies to a file.",
+)
+@click.option(
     "--verbose",
     "-v",
     type=bool,
@@ -279,6 +309,7 @@ def cli(
     allow_redirects: bool,
     verify: bool,
     http2: bool,
+    session: FileCookieJar,
     download: bool,
     verbose: bool,
 ) -> None:
@@ -298,6 +329,7 @@ def cli(
             verify=verify,
             http2=http2,
             event_hooks=event_hooks,
+            cookies=session
         )
         with client.stream(
             method,
@@ -322,6 +354,8 @@ def cli(
                 response.read()
                 print_delimiter()
                 print_response(response)
+
+        session.save(ignore_discard=True)
 
     except httpx.RequestError as exc:
         console = rich.console.Console()
