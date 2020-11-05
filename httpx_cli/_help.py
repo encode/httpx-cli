@@ -3,6 +3,11 @@ from rich.table import Table
 
 
 def print_help() -> None:
+    """
+    Prints the help table.
+
+    Args:
+    """
     console = Console()
 
     console.print("[bold]HTTPX :butterfly:", justify="center")

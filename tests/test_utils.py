@@ -7,6 +7,11 @@ from httpx_cli._utils import (
 
 
 def test_filename_from_content_disposition():
+    """
+    Download a filename is_filename.
+
+    Args:
+    """
     response = httpx.Response(
         200, headers={"Content-Disposition": "attachment; filename=example.tar.gz"}
     )
@@ -17,6 +22,11 @@ def test_filename_from_content_disposition():
 
 
 def test_filename_from_url():
+    """
+    Download a filename from a url.
+
+    Args:
+    """
     request = httpx.Request("GET", "http://www.example.com/")
     response = httpx.Response(
         200, headers={"Content-Type": "text/html"}, request=request
@@ -45,6 +55,11 @@ def test_filename_from_url():
 
 
 def test_trim_filename():
+    """
+    Trim a filename.
+
+    Args:
+    """
     assert trim_filename("index.html", 11) == "index.html"
     assert trim_filename("index.html", 10) == "index.html"
     assert trim_filename("index.html", 9) == "inde.html"

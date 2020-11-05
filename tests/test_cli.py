@@ -8,14 +8,31 @@ from httpx_cli import cli
 
 
 def splitlines(output):
+    """
+    Split a string into lines.
+
+    Args:
+        output: (str): write your description
+    """
     return [line.strip() for line in output.splitlines()]
 
 
 def remove_date_header(lines):
+    """
+    Remove lines from lines from lines from lines.
+
+    Args:
+        lines: (todo): write your description
+    """
     return [line for line in lines if not line.startswith("date:")]
 
 
 def test_help():
+    """
+    Run the command.
+
+    Args:
+    """
     runner = CliRunner()
     result = runner.invoke(cli, ["--help"])
     assert result.exit_code == 0
@@ -23,6 +40,12 @@ def test_help():
 
 
 def test_get(server):
+    """
+    Get test test test.
+
+    Args:
+        server: (str): write your description
+    """
     runner = CliRunner()
     result = runner.invoke(cli, [server.url])
     assert result.exit_code == 0
@@ -37,6 +60,12 @@ def test_get(server):
 
 
 def test_json(server):
+    """
+    Test the test test test test test.
+
+    Args:
+        server: (str): write your description
+    """
     url = str(httpx.URL(server.url).copy_with(path="/json"))
     runner = CliRunner()
     result = runner.invoke(cli, [url])
@@ -54,6 +83,12 @@ def test_json(server):
 
 
 def test_post(server):
+    """
+    Run test test test.
+
+    Args:
+        server: (str): write your description
+    """
     url = str(httpx.URL(server.url).copy_with(path="/echo_body"))
     runner = CliRunner()
     result = runner.invoke(cli, [url, "-m", "POST", "-j", '{"hello": "world"}'])
@@ -69,6 +104,12 @@ def test_post(server):
 
 
 def test_verbose(server):
+    """
+    Run a test test test.
+
+    Args:
+        server: (str): write your description
+    """
     url = httpx.URL(server.url)
     runner = CliRunner()
     result = runner.invoke(cli, [server.url, "-v"])
@@ -91,6 +132,12 @@ def test_verbose(server):
 
 
 def test_auth(server):
+    """
+    Perform an http server.
+
+    Args:
+        server: (str): write your description
+    """
     url = httpx.URL(server.url)
     runner = CliRunner()
     result = runner.invoke(cli, [server.url, "-v", "-a", "username", "password"])
@@ -114,6 +161,12 @@ def test_auth(server):
 
 
 def test_download(server):
+    """
+    Downloads the test server.
+
+    Args:
+        server: (str): write your description
+    """
     runner = CliRunner()
     with runner.isolated_filesystem():
         runner.invoke(cli, [server.url, "--download"])
@@ -128,6 +181,12 @@ def test_download(server):
 
 
 def test_errors(server):
+    """
+    Executes the test command.
+
+    Args:
+        server: (str): write your description
+    """
     runner = CliRunner()
     result = runner.invoke(cli, [server.url, "-h", "host", " "])
     assert result.exit_code == 1

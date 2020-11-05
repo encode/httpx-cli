@@ -19,6 +19,14 @@ from ._utils import (
 
 
 def print_request_headers(request: httpx.Request) -> None:
+    """
+    Print http headers.
+
+    Args:
+        request: (todo): write your description
+        httpx: (todo): write your description
+        Request: (todo): write your description
+    """
     console = rich.console.Console()
     http_text = format_request_headers(request)
     syntax = rich.syntax.Syntax(http_text, "http", theme="ansi_dark", word_wrap=True)
@@ -26,6 +34,14 @@ def print_request_headers(request: httpx.Request) -> None:
 
 
 def print_response_headers(response: httpx.Response) -> None:
+    """
+    Print the headers object.
+
+    Args:
+        response: (todo): write your description
+        httpx: (todo): write your description
+        Response: (todo): write your description
+    """
     console = rich.console.Console()
     http_text = format_response_headers(response)
     syntax = rich.syntax.Syntax(http_text, "http", theme="ansi_dark", word_wrap=True)
@@ -33,12 +49,25 @@ def print_response_headers(response: httpx.Response) -> None:
 
 
 def print_delimiter() -> None:
+    """
+    Print a delimiter message.
+
+    Args:
+    """
     console = rich.console.Console()
     syntax = rich.syntax.Syntax("", "http", theme="ansi_dark", word_wrap=True)
     console.print(syntax)
 
 
 def print_response(response: httpx.Response) -> None:
+    """
+    Prints the console.
+
+    Args:
+        response: (todo): write your description
+        httpx: (todo): write your description
+        Response: (todo): write your description
+    """
     console = rich.console.Console()
     lexer_name = get_lexer_for_response(response)
     if lexer_name:
@@ -57,6 +86,14 @@ def print_response(response: httpx.Response) -> None:
 
 
 def download_response(response: httpx.Response) -> None:
+    """
+    Download a response.
+
+    Args:
+        response: (todo): write your description
+        httpx: (str): write your description
+        Response: (todo): write your description
+    """
     console = rich.console.Console()
     syntax = rich.syntax.Syntax("", "http", theme="ansi_dark", word_wrap=True)
     console.print(syntax)
@@ -84,6 +121,24 @@ def validate_json(
     param: typing.Union[click.Option, click.Parameter],
     value: typing.Any,
 ) -> typing.Any:
+    """
+    Validate a json value.
+
+    Args:
+        ctx: (todo): write your description
+        click: (todo): write your description
+        Context: (todo): write your description
+        param: (todo): write your description
+        typing: (str): write your description
+        Union: (str): write your description
+        click: (todo): write your description
+        Option: (str): write your description
+        click: (todo): write your description
+        Parameter: (todo): write your description
+        value: (todo): write your description
+        typing: (str): write your description
+        Any: (str): write your description
+    """
     if value is None:
         return None
 
@@ -98,6 +153,24 @@ def validate_auth(
     param: typing.Union[click.Option, click.Parameter],
     value: typing.Any,
 ) -> typing.Any:
+    """
+    Validate the username and password.
+
+    Args:
+        ctx: (todo): write your description
+        click: (todo): write your description
+        Context: (todo): write your description
+        param: (todo): write your description
+        typing: (str): write your description
+        Union: (str): write your description
+        click: (todo): write your description
+        Option: (str): write your description
+        click: (todo): write your description
+        Parameter: (todo): write your description
+        value: (todo): write your description
+        typing: (str): write your description
+        Any: (str): write your description
+    """
     if value == (None, None):
         return None
 
@@ -112,6 +185,24 @@ def handle_help(
     param: typing.Union[click.Option, click.Parameter],
     value: typing.Any,
 ) -> None:
+    """
+    Handle help on the command.
+
+    Args:
+        ctx: (todo): write your description
+        click: (todo): write your description
+        Context: (dict): write your description
+        param: (todo): write your description
+        typing: (str): write your description
+        Union: (str): write your description
+        click: (todo): write your description
+        Option: (str): write your description
+        click: (todo): write your description
+        Parameter: (todo): write your description
+        value: (todo): write your description
+        typing: (str): write your description
+        Any: (todo): write your description
+    """
     if not value or ctx.resilient_parsing:
         return
 

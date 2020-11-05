@@ -9,6 +9,14 @@ import httpx
 
 
 def get_lexer_for_response(response: httpx.Response) -> str:
+    """
+    Returns a pygments response.
+
+    Args:
+        response: (todo): write your description
+        httpx: (todo): write your description
+        Response: (todo): write your description
+    """
     content_type = response.headers.get("Content-Type")
     if content_type is not None:
         mime_type, _, _ = content_type.partition(";")
@@ -20,6 +28,14 @@ def get_lexer_for_response(response: httpx.Response) -> str:
 
 
 def format_request_headers(request: httpx.Request) -> str:
+    """
+    Format the headers.
+
+    Args:
+        request: (todo): write your description
+        httpx: (todo): write your description
+        Request: (todo): write your description
+    """
     target = request.url.raw[-1].decode("ascii")
     lines = [f"{request.method} {target} HTTP/1.1"] + [
         f"{name}: {value}" for name, value in request.headers.items()
@@ -28,6 +44,14 @@ def format_request_headers(request: httpx.Request) -> str:
 
 
 def format_response_headers(response: httpx.Response) -> str:
+    """
+    Format the http headers.
+
+    Args:
+        response: (todo): write your description
+        httpx: (todo): write your description
+        Response: (todo): write your description
+    """
     lines = [
         f"{response.http_version} {response.status_code} {response.reason_phrase}"
     ] + [f"{name}: {value}" for name, value in response.headers.items()]
@@ -56,6 +80,14 @@ def filename_from_content_disposition(response: httpx.Response) -> str:
 
 
 def filename_from_url(response: httpx.Response) -> str:
+    """
+    Return the filename of the content - type.
+
+    Args:
+        response: (todo): write your description
+        httpx: (str): write your description
+        Response: (todo): write your description
+    """
     content_type = response.headers.get("Content-Type")
     filename = "" if not response.url else response.url.path.rstrip("/")
     filename = os.path.basename(filename) if filename else "index"
@@ -79,6 +111,13 @@ def filename_from_url(response: httpx.Response) -> str:
 
 
 def trim_filename(filename: str, max_len: int = 255) -> str:
+    """
+    Trim the filename from filename.
+
+    Args:
+        filename: (str): write your description
+        max_len: (int): write your description
+    """
     if len(filename) > max_len:
         trim_by = len(filename) - max_len
         name, ext = os.path.splitext(filename)
@@ -90,6 +129,12 @@ def trim_filename(filename: str, max_len: int = 255) -> str:
 
 
 def get_unique_filename(filename: str) -> str:
+    """
+    Returns the filename.
+
+    Args:
+        filename: (str): write your description
+    """
     attempt = 0
     while True:
         suffix = f"-{attempt}" if attempt > 0 else ""
@@ -102,6 +147,14 @@ def get_unique_filename(filename: str) -> str:
 
 
 def get_download_filename(response: httpx.Response) -> str:
+    """
+    Get the filename.
+
+    Args:
+        response: (todo): write your description
+        httpx: (str): write your description
+        Response: (todo): write your description
+    """
     filename = filename_from_content_disposition(response)
     if not filename:
         filename = filename_from_url(response)
